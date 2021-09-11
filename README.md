@@ -45,24 +45,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],
-      home: Scaffold(
-        appBar: AppBar(
-            title: LocalizedText(widget.title),
-        ),
-        body: Center(
-            child: Column(
-                children: <Widget>[
-                    LocalizedText('home.welcome'),
-                    LanguageSelector(
-                        locale: klocalizations.locale,
-                        supportedLocales: klocalizations.supportedLocales,
-                        onChange: (locale) {
-                            klocalizations.setLocale(locale ?? klocalizations.defaultLocale);
-                        },
-                    ),
-                ],
-            ),
-        ),
+      home: MyApp(),
     );
   }
 }
