@@ -136,7 +136,8 @@ class LocalizedText extends StatelessWidget {
       effectiveTextStyle = defaultTextStyle.style.merge(style);
     }
     if (MediaQuery.boldTextOverride(context)) {
-      effectiveTextStyle = effectiveTextStyle!.merge(const TextStyle(fontWeight: FontWeight.bold));
+      effectiveTextStyle = effectiveTextStyle!
+          .merge(const TextStyle(fontWeight: FontWeight.bold));
     }
 
     Widget result = RichText(
@@ -146,13 +147,15 @@ class LocalizedText extends StatelessWidget {
       // RichText uses Localizations.localeOf to obtain a default if this is null
       locale: locale ?? localizations.locale,
       softWrap: softWrap ?? defaultTextStyle.softWrap,
-      overflow: overflow ?? effectiveTextStyle?.overflow ?? defaultTextStyle.overflow,
+      overflow:
+          overflow ?? effectiveTextStyle?.overflow ?? defaultTextStyle.overflow,
       textScaleFactor: textScaleFactor ?? MediaQuery.textScaleFactorOf(context),
       maxLines: maxLines ?? defaultTextStyle.maxLines,
       strutStyle: strutStyle,
       textWidthBasis: textWidthBasis ?? defaultTextStyle.textWidthBasis,
-      textHeightBehavior:
-          textHeightBehavior ?? defaultTextStyle.textHeightBehavior ?? DefaultTextHeightBehavior.of(context),
+      textHeightBehavior: textHeightBehavior ??
+          defaultTextStyle.textHeightBehavior ??
+          DefaultTextHeightBehavior.of(context),
       text: TextSpan(
         style: effectiveTextStyle,
         text: localizations.translate(text, params: params),

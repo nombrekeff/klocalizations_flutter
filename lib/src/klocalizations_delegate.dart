@@ -18,5 +18,6 @@ class KLocalizationsDelegate extends LocalizationsDelegate<KLocalizations> {
   }
 
   @override
-  bool shouldReload(covariant LocalizationsDelegate<KLocalizations> old) => false;
+  bool shouldReload(covariant LocalizationsDelegate<KLocalizations> old) =>
+      false;
 }
