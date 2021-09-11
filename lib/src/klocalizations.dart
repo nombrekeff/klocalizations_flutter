@@ -124,6 +124,10 @@ class KLocalizations extends ChangeNotifier {
       throw MissingTranslationException(key);
     }
 
+    if (translation is! String && !throwOnMissingTranslation) {
+      translation = key;
+    }
+
     if (params != null && translation != key) {
       translation = interpolate(translation, params: params);
     }
