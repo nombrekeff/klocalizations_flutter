@@ -1,0 +1,14 @@
+{
+    "_config": {
+        "textDirection": "rtl"
+    },
+    "home": {
+        "title": "KLocalizations demo!",
+        "welcome": "مرحبا بكم في عرض klocalizations!",
+        "counter": "You've clicked {{count}} times"
+    },
+    "languages": {
+        "es": "Spanish",
+        "en": "English"
+    }
+}

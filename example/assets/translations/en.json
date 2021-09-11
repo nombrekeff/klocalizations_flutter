@@ -1,0 +1,14 @@
+{
+    "_config": {
+        "textDirection": "ltr"
+    },
+    "home": {
+        "title": "KLocalizations demo!",
+        "welcome": "Welcome to klocalizations demo!",
+        "counter": "You've clicked {{count}} times"
+    },
+    "languages": {
+        "es": "Spanish",
+        "en": "English"
+    }
+}
