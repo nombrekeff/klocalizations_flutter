@@ -14,6 +14,7 @@ class KLocalizations extends ChangeNotifier {
     required Locale defaultLocale,
     String? localizationsAssetsPath,
     Widget? child,
+    KLocalizationsLoader? loader,
   }) {
     return ChangeNotifierProvider(
       create: (context) => KLocalizations(
@@ -21,6 +22,7 @@ class KLocalizations extends ChangeNotifier {
         defaultLocale: defaultLocale,
         supportedLocales: supportedLocales,
         localizationsAssetsPath: localizationsAssetsPath ?? 'assets/translations',
+        loader: loader,
       ),
       child: child,
     );
