@@ -1,6 +1,6 @@
 name: klocalizations_flutter
 description: Wrapper around flutter_localizations, with some extra functionality and abstracting some of the common logic. 
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/nombrekeff/klocalizations_flutter#readme
 repository: https://github.com/nombrekeff/klocalizations_flutter
 issue_tracker: https://github.com/nombrekeff/klocalizations_flutter/issues
