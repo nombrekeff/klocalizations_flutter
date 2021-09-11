@@ -34,6 +34,14 @@ class KLocalizations extends ChangeNotifier {
     return Provider.of<KLocalizations>(context);
   }
 
+  KLocalizations({
+    required this.locale,
+    required this.defaultLocale,
+    required this.supportedLocales,
+    this.localizationsAssetsPath = 'assets/translations',
+    this.throwOnMissingTranslation = false,
+  }) : assert(supportedLocales.isNotEmpty, 'At least a locale must be provided');
+
   /// Defines the current locale that is being used in the App
   Locale locale;
 
@@ -45,6 +53,9 @@ class KLocalizations extends ChangeNotifier {
 
   /// List of available locales, can be used by [localeResolutionCallback], to determine whether a locale is supported or not
   final List<Locale> supportedLocales;
+
+  /// Tells [KLocalizations] whether to throw an exception if a translation is missing, `false` by default.
+  final bool throwOnMissingTranslation;
 
   KLocalizationsDelegate? _delegate;
 
@@ -70,13 +81,6 @@ class KLocalizations extends ChangeNotifier {
   }
 
   Map<String, dynamic> _localizedStrings = <String, dynamic>{};
-
-  KLocalizations({
-    required this.locale,
-    required this.defaultLocale,
-    required this.supportedLocales,
-    this.localizationsAssetsPath = 'assets/translations',
-  }) : assert(supportedLocales.isNotEmpty, 'At least a locale must be provided');
 
   /// Searches for a given [languageCode] in the list of [supportedLocales], if there is a match the [Locale] is returned.
   /// Oherwise [orElse] is called if provided. If [orElse] is not provided, default value will be the first supported locale.
@@ -106,7 +110,7 @@ class KLocalizations extends ChangeNotifier {
   /// Main method, given a [key] and a set of [params],
   /// return the translated for the current [locale]
   String translate(String key, {Map<String, dynamic>? params}) {
-    String? translation;
+    dynamic translation;
 
     if (key.contains('.')) {
       translation = getValueFromPath(key, _localizedStrings);
@@ -114,8 +118,11 @@ class KLocalizations extends ChangeNotifier {
       translation = _localizedStrings[key];
     }
 
-    // var translation = _localizedStrings[key] ?? key;
-    if (params != null && translation != null) {
+    if (translation is! String && throwOnMissingTranslation) {
+      throw MissingTranslationException(key);
+    }
+
+    if (params != null && translation != key) {
       translation = interpolate(translation, params: params);
     }
 
@@ -140,4 +147,12 @@ class KLocalizations extends ChangeNotifier {
     var jsonString = await _loadStringForCurrentLocale();
     return json.decode(jsonString);
   }
+}
+
+class MissingTranslationException implements Exception {
+  final String key;
+  const MissingTranslationException(this.key);
+
+  @override
+  String toString() => 'Key "$key" is not a string or is missing, make sure keys point to a string.';
 }
