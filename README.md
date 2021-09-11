@@ -1,5 +1,7 @@
 # KLocalizations
 
+[![Pub Version](https://img.shields.io/pub/v/klocalizations_flutter?style=flat-square)](https://pub.dev/packages/klocalizations_flutter)
+
 Wrapper around [flutter_localizations](https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html), adding some extra functionality and abstracting some of the common logic. 
 
 ## Features
@@ -114,7 +116,7 @@ Widget build(BuildContext context) {
 }
 ```
 
-> `LocalizedText` accepts the same arguments as [Text](https://api.flutter.dev/flutter/widgets/Text-class.html)
+> `LocalizedText` accepts the same arguments as [Text](https://api.flutter.dev/flutter/widgets/Text-class.html) plus [params]
 
 
 ### 4. Changing locale
