@@ -35,15 +35,13 @@ class KLocalizations extends ChangeNotifier {
   }
 
   KLocalizations({
-    required this.locale,
+    required Locale locale,
     required this.defaultLocale,
     required this.supportedLocales,
     this.localizationsAssetsPath = 'assets/translations',
     this.throwOnMissingTranslation = false,
-  }) : assert(supportedLocales.isNotEmpty, 'At least a locale must be provided');
-
-  /// Defines the current locale that is being used in the App
-  Locale locale;
+  })  : _locale = locale,
+        assert(supportedLocales.isNotEmpty, 'At least a locale must be provided');
 
   /// Defines the default locale
   final Locale defaultLocale;
@@ -57,7 +55,14 @@ class KLocalizations extends ChangeNotifier {
   /// Tells [KLocalizations] whether to throw an exception if a translation is missing, `false` by default.
   final bool throwOnMissingTranslation;
 
+  /// Defines the current locale that is being used in the App
+  Locale _locale;
+
   KLocalizationsDelegate? _delegate;
+
+  Map<String, dynamic> _localizedStrings = <String, dynamic>{};
+
+  Locale get locale => _locale;
 
   /// Returns the delegate for [KLocalizations]
   get delegate {
@@ -80,8 +85,6 @@ class KLocalizations extends ChangeNotifier {
     }
   }
 
-  Map<String, dynamic> _localizedStrings = <String, dynamic>{};
-
   /// Searches for a given [languageCode] in the list of [supportedLocales], if there is a match the [Locale] is returned.
   /// Oherwise [orElse] is called if provided. If [orElse] is not provided, default value will be the first supported locale.
   Locale getLocaleByLanguageCode(String? languageCode, {Locale Function()? orElse}) {
@@ -100,15 +103,14 @@ class KLocalizations extends ChangeNotifier {
     );
   }
 
-  /// Set the locale
-  /// If locale is not supported it will fallback to [supportedLocales.first]
-  void setLocale(Locale locale) {
-    this.locale = locale;
-    notifyListeners();
+  /// Set the locale, and notify listeners if [silent] is `false`
+  void setLocale(Locale locale, {bool silent = false}) {
+    _locale = locale;
+    if (!silent) notifyListeners();
   }
 
   /// Main method, given a [key] and a set of [params],
-  /// return the translated for the current [locale]
+  /// return the translated for the current [_locale]
   String translate(String key, {Map<String, dynamic>? params}) {
     dynamic translation;
 
@@ -140,7 +142,7 @@ class KLocalizations extends ChangeNotifier {
   MapEntry<String, dynamic> _mapEntry(String key, value) => MapEntry(key, value);
 
   Future<String> _loadStringForCurrentLocale() {
-    return rootBundle.loadString('$localizationsAssetsPath/${locale.languageCode}.json');
+    return rootBundle.loadString('$localizationsAssetsPath/${_locale.languageCode}.json');
   }
 
   Future<Map<String, dynamic>> _loadMapForLocale() async {

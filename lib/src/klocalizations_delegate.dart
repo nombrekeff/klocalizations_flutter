@@ -7,7 +7,7 @@ class KLocalizationsDelegate extends LocalizationsDelegate<KLocalizations> {
 
   @override
   Future<KLocalizations> load(Locale locale) async {
-    localizations.locale = locale;
+    localizations.setLocale(locale, silent: true);
     await localizations.load();
     return localizations;
   }
