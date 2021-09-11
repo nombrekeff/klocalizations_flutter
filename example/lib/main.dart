@@ -1,4 +1,3 @@
-import 'package:example/language_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:klocalizations_flutter/klocalizations_flutter.dart';
 
