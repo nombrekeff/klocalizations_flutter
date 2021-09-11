@@ -121,7 +121,7 @@ Widget build(BuildContext context) {
 
 Changing locale is not a big deal, we just need to tell **KLocalizatons** to change it:
 ```dart
-klocalizations.setLocale(locale);
+KLocalizations.of(context).setLocale(locale);
 ```
 
 This will rebuild the widget tree and apply the selected locale across the app.
