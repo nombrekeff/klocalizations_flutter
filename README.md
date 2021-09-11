@@ -11,10 +11,25 @@ Wrapper around [flutter_localizations](https://api.flutter.dev/flutter/flutter_l
 * `LocalizedText` widget, behaves live `Text` but attempts to translate the string.
 
 
-## Usage
+## How to use
 
 ### 1. Create translations files
-First files for each supported locale must be created, by default KLocalizations expects them to be in `'assets/translations'`, but can be changed. The configuration files must be in json format.
+The first this we need to do, is to create the files containing our translations for each of the supported languages.
+
+By default KLocalizations expects them to be located under `'assets/translations'`, but can be specified on setup. The configuration files must be in json format.
+
+**Example:**
+```json
+// assets/translations/es.json
+{
+  "home": {
+      "title": "KLocalizations demo!",
+      "welcome": "Bienvenido a klocalizations demo!",
+      "counter": "Has clicado {{count}} veces"
+  },
+}
+```
+
 
 ### 2. Setup
 
@@ -50,3 +65,63 @@ class MyApp extends StatelessWidget {
   }
 }
 ```
+
+#### 2.1. Add assets to pubspec
+The path to the translation files assets must be declared in the `pubspec.yml`, so that Flutter let's us access them:
+```yml
+flutter:
+  assets:
+    - assets/translations/
+```
+
+> The asset path must be the same as the one passed in `localizationsAssetsPath`.
+
+### 3. Translating
+
+Now we are ready to start trasnlating in the app. KLocalizations offers 2 ways of doing this, by using **KLocalizations.translate()** or using the **LocalizedText** widget.
+
+#### KLocalizations.translate()
+
+This method receives a string (or key), and returns the translated string. This is how you would use it: 
+
+```dart
+@override
+Widget build(BuildContext context) {
+  final localizations = KLocalizations.of(context);
+
+  return Column(
+    children: [
+      Text(localizations.translate('home.title')),
+      Text(localizations.translate('home.counter', { 'count': 12 })),
+    ]
+  );
+}
+```
+
+#### LocalizedText
+
+**KLocalizatons** offers a text widget that behaves exactly like Flutter's **Text** widget, but tries to translate the given string using `KLocalizatons`. It also accepts params for interpolation. Used like this:
+
+```dart
+@override
+Widget build(BuildContext context) {
+  return Column(
+    children: [
+      LocalizedText('home.title'),
+      LocalizedText('home.counter', params: { 'count': 12 }),
+    ]
+  );
+}
+```
+
+> `LocalizedText` accepts the same arguments as [Text](https://api.flutter.dev/flutter/widgets/Text-class.html)
+
+
+
+## Additional info
+
+There is a complete example [here](https://github.com/nombrekeff/klocalizations_flutter/tree/main/example)
+
+If you encounter any problems or fancy a feature to be added please head over to the GitHub [repository](https://github.com/nombrekeff/klocalizations_flutter/) and [drop an issue](https://github.com/nombrekeff/klocalizations_flutter/issues/new).
+
+
