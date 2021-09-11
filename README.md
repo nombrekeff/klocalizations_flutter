@@ -22,10 +22,10 @@ By default KLocalizations expects them to be located under `'assets/translations
 ```json
 // assets/translations/es.json
 {
+  "welcome": "Bienvenido a klocalizations demo!",
   "home": {
-      "title": "KLocalizations demo!",
-      "welcome": "Bienvenido a klocalizations demo!",
-      "counter": "Has clicado {{count}} veces"
+    "title": "KLocalizations demo!",
+    "counter": "Has clicado {{count}} veces"
   },
 }
 ```
@@ -91,6 +91,7 @@ Widget build(BuildContext context) {
 
   return Column(
     children: [
+      Text(localizations.translate('welcome')),
       Text(localizations.translate('home.title')),
       Text(localizations.translate('home.counter', { 'count': 12 })),
     ]
@@ -107,6 +108,7 @@ Widget build(BuildContext context) {
 Widget build(BuildContext context) {
   return Column(
     children: [
+      LocalizedText('welcome'),
       LocalizedText('home.title'),
       LocalizedText('home.counter', params: { 'count': 12 }),
     ]
@@ -116,6 +118,15 @@ Widget build(BuildContext context) {
 
 > `LocalizedText` accepts the same arguments as [Text](https://api.flutter.dev/flutter/widgets/Text-class.html)
 
+
+### 4. Changing locale
+
+Changing locale is not a big deal, we just need to tell **KLocalizatons** to change it:
+```dart
+klocalizations.setLocale(locale);
+```
+
+This will rebuild the widget tree and apply the selected locale across the app.
 
 
 ## Additional info
