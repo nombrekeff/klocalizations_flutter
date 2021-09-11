@@ -9,7 +9,6 @@ Wrapper around [flutter_localizations](https://api.flutter.dev/flutter/flutter_l
 * Change locale from anywhere
 * `LocalizedText` widget
 
-
 ## How to use
 
 ### 1. Create translations files
