@@ -1,10 +1,10 @@
 # KLocalizations
 
-Wrapper around flutter_localizations, adding some extra functionality. 
+Wrapper around [flutter_localizations](https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html), adding some extra functionality. 
 
 
 ## Features
-* Easier setup
+* Easy setup
 * Parameter Interpolation
 * Access translations with dot notation (`home.title`)
 * Change locale from anywhere, app reacts
