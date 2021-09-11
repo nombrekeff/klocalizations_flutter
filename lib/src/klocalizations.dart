@@ -1,11 +1,8 @@
-import 'dart:convert';
-
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:klocalizations_flutter/klocalizations_flutter.dart';
+import 'package:klocalizations_flutter/src/klocalizations_loader.dart';
 import 'package:klocalizations_flutter/src/utils.dart';
 import 'package:provider/provider.dart';
-
-import 'klocalizations_delegate.dart';
 
 /// This is the clase you will use to setup and consume localizations, refer to the [README]() for more detailed info.
 class KLocalizations extends ChangeNotifier {
@@ -40,7 +37,9 @@ class KLocalizations extends ChangeNotifier {
     required this.supportedLocales,
     this.localizationsAssetsPath = 'assets/translations',
     this.throwOnMissingTranslation = false,
+    KLocalizationsLoader? loader,
   })  : _locale = locale,
+        _loader = loader ?? KLocalizationsLoaderJson(assetPath: localizationsAssetsPath),
         assert(supportedLocales.isNotEmpty, 'At least a locale must be provided');
 
   /// Defines the default locale
@@ -61,6 +60,8 @@ class KLocalizations extends ChangeNotifier {
   KLocalizationsDelegate? _delegate;
 
   Map<String, dynamic> _localizedStrings = <String, dynamic>{};
+
+  final KLocalizationsLoader _loader;
 
   Locale get locale => _locale;
 
@@ -137,22 +138,12 @@ class KLocalizations extends ChangeNotifier {
 
   /// Loads translations for current locale
   Future<bool> load() async {
-    var jsonMap = await _loadMapForLocale();
+    var jsonMap = await _loader.loadMapForLocale(locale);
     _localizedStrings = jsonMap.map(_mapEntry);
-
     return true;
   }
 
   MapEntry<String, dynamic> _mapEntry(String key, value) => MapEntry(key, value);
-
-  Future<String> _loadStringForCurrentLocale() {
-    return rootBundle.loadString('$localizationsAssetsPath/${_locale.languageCode}.json');
-  }
-
-  Future<Map<String, dynamic>> _loadMapForLocale() async {
-    var jsonString = await _loadStringForCurrentLocale();
-    return json.decode(jsonString);
-  }
 }
 
 class MissingTranslationException implements Exception {

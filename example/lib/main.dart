@@ -6,6 +6,7 @@ const supportedLocales = [
   Locale('en', 'GB'),
   Locale('es', 'ES'),
   Locale('ar', 'AR'),
+  Locale('gr', 'GR'),
 ];
 
 void main() {
