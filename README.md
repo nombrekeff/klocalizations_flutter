@@ -14,9 +14,9 @@ Wrapper around [flutter_localizations](https://api.flutter.dev/flutter/flutter_l
 ## How to use
 
 ### 1. Create translations files
-The first this we need to do, is to create the files containing our translations for each of the supported languages.
+The first this we need to do is to create the files containing our translations for each of the supported languages.
 
-By default KLocalizations expects them to be located under `'assets/translations'`, but can be specified on setup. The configuration files must be in json format.
+By default KLocalizations expects them to be located under `'assets/translations'`, but can be specified on setup. The configuration files must be in JSON format.
 
 **Example:**
 ```json
@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
 ```
 
 #### 2.1. Add assets to pubspec
-The path to the translation files assets must be declared in the `pubspec.yml`, so that Flutter let's us access them:
+The path to the translation files assets must be declared in the `pubspec.yml` so that Flutter lets us access them:
 ```yml
 flutter:
   assets:
@@ -78,11 +78,11 @@ flutter:
 
 ### 3. Translating
 
-Now we are ready to start trasnlating in the app. KLocalizations offers 2 ways of doing this, by using **KLocalizations.translate()** or using the **LocalizedText** widget.
+Now we are ready to start translating in the app. KLocalizations offers 2 ways of doing this, by using **KLocalizations.translate()** or using the **LocalizedText** widget.
 
 #### KLocalizations.translate()
 
-This method receives a string (or key), and returns the translated string. This is how you would use it: 
+This method receives a string (or key) and returns the translated string. This is how you would use it: 
 
 ```dart
 @override
@@ -101,7 +101,7 @@ Widget build(BuildContext context) {
 
 #### LocalizedText
 
-**KLocalizatons** offers a text widget that behaves exactly like Flutter's **Text** widget, but tries to translate the given string using `KLocalizatons`. It also accepts params for interpolation. Used like this:
+**KLocalizatons** offers a text widget that behaves exactly like Flutter's **Text** widget but tries to translate the given string using `KLocalizatons`. It also accepts params for interpolation. Used like this:
 
 ```dart
 @override
