@@ -1,3 +1,4 @@
+import 'package:example/http_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:klocalizations_flutter/klocalizations_flutter.dart';
 
@@ -15,6 +16,7 @@ void main() {
       locale: supportedLocales[0],
       defaultLocale: supportedLocales[0],
       supportedLocales: supportedLocales,
+      loader: HttpLoader(),
       child: const MyApp(),
     ),
   );
