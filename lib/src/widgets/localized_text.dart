@@ -9,6 +9,9 @@ class LocalizedText extends StatelessWidget {
   /// Text to be localized
   final String text;
 
+  /// Make the localized text uppercase
+  final bool uppercase;
+
   /// If not null, params will be interpolated into the translated string
   final Map<String, dynamic> params;
 
@@ -123,6 +126,7 @@ class LocalizedText extends StatelessWidget {
     this.semanticsLabel,
     this.textWidthBasis,
     this.textHeightBehavior,
+    this.uppercase = false,
   })  : textSpan = null,
         super(key: key);
 
@@ -136,8 +140,12 @@ class LocalizedText extends StatelessWidget {
       effectiveTextStyle = defaultTextStyle.style.merge(style);
     }
     if (MediaQuery.boldTextOverride(context)) {
-      effectiveTextStyle = effectiveTextStyle!
-          .merge(const TextStyle(fontWeight: FontWeight.bold));
+      effectiveTextStyle = effectiveTextStyle!.merge(const TextStyle(fontWeight: FontWeight.bold));
+    }
+
+    String localizedText = localizations.translate(text, params: params);
+    if (uppercase) {
+      localizedText = localizedText.toUpperCase();
     }
 
     Widget result = RichText(
@@ -147,8 +155,7 @@ class LocalizedText extends StatelessWidget {
       // RichText uses Localizations.localeOf to obtain a default if this is null
       locale: locale ?? localizations.locale,
       softWrap: softWrap ?? defaultTextStyle.softWrap,
-      overflow:
-          overflow ?? effectiveTextStyle?.overflow ?? defaultTextStyle.overflow,
+      overflow: overflow ?? effectiveTextStyle?.overflow ?? defaultTextStyle.overflow,
       textScaleFactor: textScaleFactor ?? MediaQuery.textScaleFactorOf(context),
       maxLines: maxLines ?? defaultTextStyle.maxLines,
       strutStyle: strutStyle,
@@ -158,7 +165,7 @@ class LocalizedText extends StatelessWidget {
           DefaultTextHeightBehavior.of(context),
       text: TextSpan(
         style: effectiveTextStyle,
-        text: localizations.translate(text, params: params),
+        text: localizedText,
         children: textSpan != null ? <InlineSpan>[textSpan!] : null,
       ),
     );
