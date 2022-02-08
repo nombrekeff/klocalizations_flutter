@@ -7,3 +7,6 @@
 
 ## 0.0.4
 * removed provider version contraint
+
+## 0.0.5
+* Added `uppercase` property to `LocalizedText`. If true, it will make the resulting localized text uppercase.

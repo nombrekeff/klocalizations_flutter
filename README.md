@@ -116,7 +116,7 @@ Widget build(BuildContext context) {
 }
 ```
 
-> `LocalizedText` accepts the same arguments as [Text](https://api.flutter.dev/flutter/widgets/Text-class.html) plus [params]
+> `LocalizedText` accepts the same arguments as [Text](https://api.flutter.dev/flutter/widgets/Text-class.html) plus some additional parameters. You can find the complete documentation [here](https://pub.dev/documentation/klocalizations_flutter/latest/klocalizations_flutter/LocalizedText-class.html).
 
 
 ### 4. Changing locale
@@ -131,8 +131,8 @@ This will rebuild the widget tree and apply the selected locale across the app.
 
 ## Additional info
 
-There is a complete example [here](https://github.com/nombrekeff/klocalizations_flutter/tree/main/example)
+* Complete example [here](https://github.com/nombrekeff/klocalizations_flutter/tree/main/example)
+* Docs can be found [here](https://pub.dev/documentation/klocalizations_flutter)
 
 If you encounter any problems or fancy a feature to be added please head over to the GitHub [repository](https://github.com/nombrekeff/klocalizations_flutter/) and [drop an issue](https://github.com/nombrekeff/klocalizations_flutter/issues/new).
-
 
