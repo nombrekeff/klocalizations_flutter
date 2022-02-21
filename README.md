@@ -109,8 +109,8 @@ Widget build(BuildContext context) {
   return Column(
     children: [
       LocalizedText('welcome'),
-      LocalizedText('home.title'),
-      LocalizedText('home.counter', params: { 'count': 12 }),
+      LocalizedText('home.title', selectable: true),
+      LocalizedText.selectable('home.counter', params: { 'count': 12 }),
     ]
   );
 }

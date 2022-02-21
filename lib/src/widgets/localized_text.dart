@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:klocalizations_flutter/klocalizations_flutter.dart';
@@ -11,6 +10,9 @@ class LocalizedText extends StatelessWidget {
 
   /// Make the localized text uppercase
   final bool uppercase;
+
+  /// Make the text selectable
+  final bool selectable;
 
   /// If not null, params will be interpolated into the translated string
   final Map<String, dynamic> params;
@@ -127,7 +129,29 @@ class LocalizedText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.uppercase = false,
+    this.selectable = false,
   })  : textSpan = null,
+        super(key: key);
+
+  const LocalizedText.selectable(
+    this.text, {
+    Key? key,
+    this.params = const {},
+    this.style,
+    this.textAlign,
+    this.overflow,
+    this.strutStyle,
+    this.textDirection,
+    this.locale,
+    this.softWrap,
+    this.textScaleFactor,
+    this.maxLines,
+    this.semanticsLabel,
+    this.textWidthBasis,
+    this.textHeightBehavior,
+    this.uppercase = false,
+  })  : textSpan = null,
+        selectable = true,
         super(key: key);
 
   @override
@@ -148,6 +172,13 @@ class LocalizedText extends StatelessWidget {
       localizedText = localizedText.toUpperCase();
     }
 
+    TextSpan effectiveTextSpan = TextSpan(
+      style: effectiveTextStyle,
+      text: localizedText,
+      children: textSpan != null ? <InlineSpan>[textSpan!] : null,
+      locale: locale ?? localizations.locale,
+    );
+
     Widget result = RichText(
       textAlign: textAlign ?? defaultTextStyle.textAlign ?? TextAlign.start,
       // RichText uses Directionality.of to obtain a default if this is null.
@@ -163,12 +194,24 @@ class LocalizedText extends StatelessWidget {
       textHeightBehavior: textHeightBehavior ??
           defaultTextStyle.textHeightBehavior ??
           DefaultTextHeightBehavior.of(context),
-      text: TextSpan(
-        style: effectiveTextStyle,
-        text: localizedText,
-        children: textSpan != null ? <InlineSpan>[textSpan!] : null,
-      ),
+      text: effectiveTextSpan,
     );
+
+    if (selectable) {
+      result = SelectableText.rich(
+        effectiveTextSpan,
+        textAlign: textAlign ?? defaultTextStyle.textAlign ?? TextAlign.start,
+        textDirection: textDirection ?? localizations.textDirection,
+        textScaleFactor: textScaleFactor ?? MediaQuery.textScaleFactorOf(context),
+        maxLines: maxLines ?? defaultTextStyle.maxLines,
+        strutStyle: strutStyle,
+        textWidthBasis: textWidthBasis ?? defaultTextStyle.textWidthBasis,
+        textHeightBehavior: textHeightBehavior ??
+            defaultTextStyle.textHeightBehavior ??
+            DefaultTextHeightBehavior.of(context),
+      );
+    }
+
     if (semanticsLabel != null) {
       result = Semantics(
         textDirection: textDirection,
@@ -178,6 +221,7 @@ class LocalizedText extends StatelessWidget {
         ),
       );
     }
+
     return result;
   }
 }

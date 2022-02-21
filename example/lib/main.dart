@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     .setLocale(locale ?? klocalizations.defaultLocale);
               },
             ),
-            LocalizedText(
+            LocalizedText.selectable(
               'home.counter',
               params: {
                 'count': _counter,
