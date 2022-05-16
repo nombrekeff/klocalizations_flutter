@@ -21,8 +21,7 @@ class KLocalizations extends ChangeNotifier {
         locale: locale,
         defaultLocale: defaultLocale,
         supportedLocales: supportedLocales,
-        localizationsAssetsPath:
-            localizationsAssetsPath ?? 'assets/translations',
+        localizationsAssetsPath: localizationsAssetsPath ?? 'assets/translations',
         loader: loader,
       ),
       child: child,
@@ -30,8 +29,8 @@ class KLocalizations extends ChangeNotifier {
   }
 
   /// Obtains the nearest [KLocalizations] up its widget tree and returns its value.
-  static KLocalizations of(BuildContext context) {
-    return Provider.of<KLocalizations>(context);
+  static KLocalizations of(BuildContext context, {bool listen = true}) {
+    return Provider.of<KLocalizations>(context, listen: listen);
   }
 
   KLocalizations({
@@ -42,10 +41,8 @@ class KLocalizations extends ChangeNotifier {
     this.throwOnMissingTranslation = false,
     KLocalizationsLoader? loader,
   })  : _locale = locale,
-        _loader = loader ??
-            KLocalizationsLoaderJson(assetPath: localizationsAssetsPath),
-        assert(
-            supportedLocales.isNotEmpty, 'At least a locale must be provided');
+        _loader = loader ?? KLocalizationsLoaderJson(assetPath: localizationsAssetsPath),
+        assert(supportedLocales.isNotEmpty, 'At least a locale must be provided');
 
   /// Defines the default locale
   final Locale defaultLocale;
@@ -77,8 +74,7 @@ class KLocalizations extends ChangeNotifier {
   }
 
   /// Returns the supported locale names
-  get supportedLocaleNames =>
-      supportedLocales.map((locale) => locale.languageCode);
+  get supportedLocaleNames => supportedLocales.map((locale) => locale.languageCode);
 
   /// Returns [TextDirection] for the current locale if specified, otherwise returns [TextDirection.ltr]
   TextDirection get textDirection {
@@ -94,8 +90,7 @@ class KLocalizations extends ChangeNotifier {
 
   /// Searches for a given [languageCode] in the list of [supportedLocales], if there is a match the [Locale] is returned.
   /// Oherwise [orElse] is called if provided. If [orElse] is not provided, default value will be the first supported locale.
-  Locale getLocaleByLanguageCode(String? languageCode,
-      {Locale Function()? orElse}) {
+  Locale getLocaleByLanguageCode(String? languageCode, {Locale Function()? orElse}) {
     return supportedLocales.firstWhere(
       (lang) => lang.languageCode == languageCode,
       orElse: orElse ?? () => supportedLocales.first,
@@ -104,8 +99,7 @@ class KLocalizations extends ChangeNotifier {
 
   /// Searches for a given [countryCode] in the list of [supportedLocales], if there is a match the [Locale] is returned.
   /// Oherwise [orElse] is called if provided. If [orElse] is not provided, default value will be the first supported locale.
-  Locale getLocaleByCountryCode(String? countryCode,
-      {Locale Function()? orElse}) {
+  Locale getLocaleByCountryCode(String? countryCode, {Locale Function()? orElse}) {
     return supportedLocales.firstWhere(
       (lang) => lang.countryCode == countryCode,
       orElse: orElse ?? () => supportedLocales.first,
@@ -151,8 +145,7 @@ class KLocalizations extends ChangeNotifier {
     return true;
   }
 
-  MapEntry<String, dynamic> _mapEntry(String key, value) =>
-      MapEntry(key, value);
+  MapEntry<String, dynamic> _mapEntry(String key, value) => MapEntry(key, value);
 }
 
 class MissingTranslationException implements Exception {
