@@ -29,8 +29,8 @@ class KLocalizations extends ChangeNotifier {
   }
 
   /// Obtains the nearest [KLocalizations] up its widget tree and returns its value.
-  static KLocalizations of(BuildContext context, {bool listen = true}) {
-    return Provider.of<KLocalizations>(context, listen: listen);
+  static KLocalizations? of(BuildContext context, {bool listen = true}) {
+    return Localizations.of<KLocalizations>(context, KLocalizations);
   }
 
   KLocalizations({

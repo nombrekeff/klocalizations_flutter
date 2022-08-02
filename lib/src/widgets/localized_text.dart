@@ -167,7 +167,7 @@ class LocalizedText extends StatelessWidget {
       effectiveTextStyle = effectiveTextStyle!.merge(const TextStyle(fontWeight: FontWeight.bold));
     }
 
-    String localizedText = localizations.translate(text, params: params);
+    String localizedText = localizations?.translate(text, params: params) ?? text;
     if (uppercase) {
       localizedText = localizedText.toUpperCase();
     }
@@ -176,15 +176,15 @@ class LocalizedText extends StatelessWidget {
       style: effectiveTextStyle,
       text: localizedText,
       children: textSpan != null ? <InlineSpan>[textSpan!] : null,
-      locale: locale ?? localizations.locale,
+      locale: locale ?? localizations?.locale,
     );
 
     Widget result = RichText(
       textAlign: textAlign ?? defaultTextStyle.textAlign ?? TextAlign.start,
       // RichText uses Directionality.of to obtain a default if this is null.
-      textDirection: textDirection ?? localizations.textDirection,
+      textDirection: textDirection ?? localizations?.textDirection,
       // RichText uses Localizations.localeOf to obtain a default if this is null
-      locale: locale ?? localizations.locale,
+      locale: locale ?? localizations?.locale,
       softWrap: softWrap ?? defaultTextStyle.softWrap,
       overflow: overflow ?? effectiveTextStyle?.overflow ?? defaultTextStyle.overflow,
       textScaleFactor: textScaleFactor ?? MediaQuery.textScaleFactorOf(context),
@@ -201,7 +201,7 @@ class LocalizedText extends StatelessWidget {
       result = SelectableText.rich(
         effectiveTextSpan,
         textAlign: textAlign ?? defaultTextStyle.textAlign ?? TextAlign.start,
-        textDirection: textDirection ?? localizations.textDirection,
+        textDirection: textDirection ?? localizations?.textDirection,
         textScaleFactor: textScaleFactor ?? MediaQuery.textScaleFactorOf(context),
         maxLines: maxLines ?? defaultTextStyle.maxLines,
         strutStyle: strutStyle,
@@ -215,7 +215,7 @@ class LocalizedText extends StatelessWidget {
     if (semanticsLabel != null) {
       result = Semantics(
         textDirection: textDirection,
-        label: localizations.translate(semanticsLabel!, params: params),
+        label: localizations?.translate(semanticsLabel!, params: params),
         child: ExcludeSemantics(
           child: result,
         ),

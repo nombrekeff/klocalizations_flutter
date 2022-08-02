@@ -31,10 +31,10 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'Flutter Demo',
-      locale: klocalizations.locale,
-      supportedLocales: klocalizations.supportedLocales,
+      locale: klocalizations?.locale,
+      supportedLocales: klocalizations?.supportedLocales ?? [],
       localizationsDelegates: [
-        klocalizations.delegate,
+        klocalizations?.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
@@ -82,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: theme.textTheme.headline5,
             ),
             LanguageSelector(
-              locale: klocalizations.locale,
+              locale: klocalizations!.locale,
               supportedLocales: klocalizations.supportedLocales,
               onChange: (locale) {
                 klocalizations
