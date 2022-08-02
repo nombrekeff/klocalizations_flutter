@@ -14,3 +14,6 @@
 ## 0.0.6
 * Added `selectable` property to `LocalizedText`. If true, it will make the resulting localized text selectable.
 * Added `LocalizedText.selectable()` constructor. Makes the LocalizedText selectable
+
+## 0.0.8
+* KLocalizationsLoader does not require params, it's up to each implementation to ask for specific params
