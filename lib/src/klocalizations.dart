@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:klocalizations_flutter/klocalizations_flutter.dart';
-import 'package:klocalizations_flutter/src/klocalizations_loader.dart';
 import 'package:klocalizations_flutter/src/utils.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +29,7 @@ class KLocalizations extends ChangeNotifier {
 
   /// Obtains the nearest [KLocalizations] up its widget tree and returns its value.
   static KLocalizations? of(BuildContext context, {bool listen = true}) {
-    return Localizations.of<KLocalizations>(context, KLocalizations);
+    return Provider.of<KLocalizations>(context, listen: listen);
   }
 
   KLocalizations({
